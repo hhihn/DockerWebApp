@@ -5,7 +5,12 @@ services:
     build: .
     ports:
       - "5000:5000"
-    volumes:
-      - .:/app  # Live-Reload während Entwicklung
     environment:
-      - FLASK_DEBUG=1
+      - APP_VERSION=1.0.0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s      # Alle 10 Sekunden prüfen
+      timeout: 5s        # Timeout nach 5 Sekunden
+      retries: 3         # Nach 3 Fehlversuchen = unhealthy
+      start_period: 10s  # 10 Sekunden Startzeit erlauben
+    restart: unless-stopped
