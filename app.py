@@ -48,7 +48,6 @@ def liveness():
 @app.route('/health/ready')
 def readiness():
     """Readiness Probe - Ist die App bereit für Traffic?"""
-    # Hier könntest du DB-Verbindung etc. prüfen
     ready = True
 
     if ready:
