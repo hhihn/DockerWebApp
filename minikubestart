@@ -1,0 +1,17 @@
+# Minikube starten
+minikube start
+
+# Images bauen (in Minikube)
+eval $(minikube docker-env)
+docker build -t api-service:latest ./api-service
+docker build -t frontend:latest ./frontend
+
+# Deployments anwenden
+kubectl apply -f kubernetes/
+
+# Status prüfen
+kubectl get pods
+kubectl get services
+
+# Im Browser öffnen
+minikube service frontend
