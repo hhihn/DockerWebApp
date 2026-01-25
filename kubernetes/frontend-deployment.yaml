@@ -19,8 +19,8 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: API_URL
-              value: "http://api-service:5001"
+            - name: DB_URL
+              value: "http://database-service:5002"
           livenessProbe:
             httpGet:
               path: /health

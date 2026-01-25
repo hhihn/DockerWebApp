@@ -4,9 +4,8 @@ minikube start
 
 # Images bauen (in Minikube)
 eval $(minikube docker-env)
-docker build -t api-service:latest ./api-service
 docker build -t frontend:latest ./frontend
-docker build -t database-service:latest ./database
+docker build -t database-service:latest ./database-service
 
 # Deployments anwenden
 kubectl apply -f kubernetes/
@@ -17,6 +16,15 @@ kubectl get services
 
 # Im Browser öffnen
 minikube service frontend
+
+# health check
+curl http://localhost:5002/health
+
+# daten einfügen
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -d '{"value": {"id": 0, "name": "john", "email": "john@doe.com"}}' \
+     http://localhost:5002/db/set/0
 
 # port forwarding für die db tests
 kubectl port-forward service/database-service 5002:5002
