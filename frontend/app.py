@@ -4,9 +4,6 @@ import os
 
 app = Flask(__name__)
 
-DB_URL = os.getenv('DB_URL', 'http://database-service:5002')
-
-
 @app.route('/')
 def home():
     return '''
@@ -22,8 +19,7 @@ def home():
 def show_users():
     """User über API-Service laden"""
     try:
-        response = requests.get(f'{DB_URL}/db/all', timeout=5)
-        data = response.json()
+        #@TODO hier verbindung einbauen
 
         html = '<h1>Benutzerasdfasdfsadf</h1><table border="1">'
         html += '<tr><th>ID</th><th>Name</th><th>Email</th></tr>'
@@ -49,7 +45,7 @@ def health():
 
     # API-Service prüfen (der prüft Database-Service)
     try:
-        response = requests.get(f'{DB_URL}/health', timeout=2)
+        # @TODO hier verbindung einbauen
         api_health = response.json()
     except:
         api_health = {'status': 'unreachable'}

@@ -46,6 +46,13 @@ def get_all():
         'timestamp': datetime.datetime.now().isoformat()
     })
 
+@app.route('/db/delete/<key>', methods=['DELETE'])
+def delete_value(key):
+    # TODO: Implementiere das Löschen eines Eintrags
+    # - Falls Key existiert: löschen und Erfolgsmeldung zurückgeben
+    # - Falls Key nicht existiert: 404 zurückgeben
+    pass
+
 
 @app.route('/health')
 def health():
