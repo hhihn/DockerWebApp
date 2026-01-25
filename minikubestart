@@ -1,3 +1,4 @@
+# docker starten
 # Minikube starten
 minikube start
 
@@ -5,6 +6,7 @@ minikube start
 eval $(minikube docker-env)
 docker build -t api-service:latest ./api-service
 docker build -t frontend:latest ./frontend
+docker build -t database-service:latest ./database
 
 # Deployments anwenden
 kubectl apply -f kubernetes/
@@ -15,3 +17,6 @@ kubectl get services
 
 # Im Browser öffnen
 minikube service frontend
+
+# port forwarding für die db tests
+kubectl port-forward service/database-service 5002:5002
