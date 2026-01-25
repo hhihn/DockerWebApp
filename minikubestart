@@ -3,7 +3,6 @@ minikube start
 
 # Images bauen (in Minikube)
 eval $(minikube docker-env)
-docker build -t api-service:latest ./api-service
 docker build -t frontend:latest ./frontend
 
 # Deployments anwenden
