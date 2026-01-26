@@ -6,6 +6,23 @@ app = Flask(__name__)
 # simulierte in-memory datenbank
 DATA = {}
 
+@app.route('/db/delete/<key>', methods=['DELETE'])
+def delete_value(key):
+    # TODO: Implementiere das Löschen eines Eintrags
+    # - Falls Key existiert: löschen und Erfolgsmeldung zurückgeben
+    # - Falls Key nicht existiert: 404 zurückgeben
+    if key in DATA:
+        DATA.pop(key)
+        return jsonify({'status': 'success', 'key': key}), 200
+    else:
+        return jsonify({'error': 'Missing value'}), 404
+
+@app.route('/db/all')
+def get_all():
+    return jsonify({'data': DATA,
+                   'count': len(DATA),
+                    'timestamp': datetime.datetime.now().isoformat()}), 200
+
 # GET: daten laden
 # POST: daten schreiben
 # <key> ist eine sog. Path Variable, die der angehängten Methode als Argument übergeben wird
