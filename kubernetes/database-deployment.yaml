@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-service
+  labels:
+    app: database-service
+spec:
+  replicas: 1 # anzahl der Pods, die erzeugt werden sollen
+  selector:
+    matchLabels:
+      app: database-service
+  template:
+    metadata:
+      name: database-service
+      labels:
+        app: database-service
+    spec:
+      containers:
+        - name: database-service
+          image: database-service:latest # nutzt eigenes image
+          imagePullPolicy: Never # muss nicht gepullt (heruntergeladen) werden
+          ports:
+            - containerPort: 5002
+              protocol: TCP
+          volumeMounts: # erstellt ein memory mount
+            - mountPath: /data
+              name: database-service-storage
+          livenessProbe: # fragt regelmäßig an. wenn keine antwort, dann starte pod neu
+            httpGet:
+              port: 5002
+              path: /health # endpoint aus der /database-service/app.py health methode
+            initialDelaySeconds: 5 # warte 5s bis zu erste probe, damit der Pod starten kann
+            periodSeconds: 10 # danach alle 10s health probe
+          readinessProbe: # frage einmal an um zu sehen ob der Pod ready ist
+            httpGet:
+              port: 5002
+              path: /health
+      volumes: # speicher
+        - name: database-service-storage
+          persistentVolumeClaim: # reserviere persistenten (= dauerhaften) Speicher
+            claimName: database-service-pvc
+      restartPolicy: Always
+      

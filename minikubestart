@@ -12,5 +12,11 @@ kubectl apply -f kubernetes/
 kubectl get pods
 kubectl get services
 
+# daten einfügen
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -d '{"value": {"id": 0, "name": "john", "email": "john@doe.com"}}' \
+     http://localhost:5002/db/set/0
+
 # Im Browser öffnen
 minikube service frontend
