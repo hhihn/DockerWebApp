@@ -4,6 +4,7 @@ minikube start
 # Images bauen (in Minikube)
 eval $(minikube docker-env)
 docker build -t frontend:latest ./frontend
+docker build -t database-service:latest ./database-service
 
 # Deployments anwenden
 kubectl apply -f kubernetes/
