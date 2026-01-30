@@ -56,7 +56,7 @@ docker build -t flask-basis-app .
 docker run -p 5000:5000 flask-basis-app
 ```
 ## 3. App im Browser öffnen
-``bash
+````bash
 http://localhost:5000
 ```
 
