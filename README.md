@@ -64,3 +64,8 @@ http://localhost:5000
 ```bash
 curl http://localhost:5000/health
 ```
+
+# Weitere Branches
+`multidocker`: Implementiert ein Multidocker setup mit Kubernetes und Minikube. 
+Die Branches `multidocker-database` und `multidocker-database-connection`
+zeigen die jeweweiligen Zwischenschritte.
